@@ -1,7 +1,7 @@
 
-### Kernel SVM Implementation
+## Kernel SVM Implementation
 
-This repositiory contains an implementation of an kernel SVM classifier.
+This repositiory contains an implementation of a kernel SVM classifier.
 
 ### Requirements:
 
