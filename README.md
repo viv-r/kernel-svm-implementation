@@ -42,7 +42,6 @@ The structure of the options object is as follows:
 {
     standardize: boolean, // (if the data should be standardized before fit)
     l2_lambda: float, // (the L2 regularization penalty)
-    objective: 'huber_hinge' | 'squared_hinge', // (the loss function to use)
     kernel: {
         fn: 'rbf' | 'linear' | 'poly',  // (the kernel function to use)
         gamma: float // (only used if fn == 'rbf')
