@@ -1,5 +1,4 @@
 import lib.loss_functions.huber_hinge as huber_hinge
-import lib.loss_functions.squared_hinge as squared_hinge
 
 
 def get_loss_gradient_functions(objective):
