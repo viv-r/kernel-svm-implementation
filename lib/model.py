@@ -69,7 +69,7 @@ class Model():
         scores_xt = []
         for i in range(iters):
             yhat_x = ovo.predict(self.options, self.models, x, self.classes, i)
-            Scores_x.append(1 - accuracy_score(yhat_x, y))
+            scores_x.append(1 - accuracy_score(yhat_x, y))
             yhat_xt = ovo.predict(self.options, self.models, xt, self.classes, i)
             scores_xt.append(1 - accuracy_score(yhat_xt, yt))
 
