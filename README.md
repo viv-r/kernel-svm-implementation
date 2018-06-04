@@ -1,7 +1,7 @@
 
 ## Kernel SVM Implementation
 
-This repositiory contains an implementation of a kernel SVM classifier.
+This repository contains an implementation of a kernel SVM classifier.
 
 ### Requirements:
 
