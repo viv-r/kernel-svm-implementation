@@ -2,14 +2,13 @@
 import numpy as np
 import pandas as pd
 import lib.one_vs_one as ovo
-import lib.one_vs_rest as ovr
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
 
 default_options = dict(
-    standardize = True,
+    standardize = False,
     l2_lambda = 1,
-    multiclass = 'ovo',
     objective = 'huber_hinge',
     kernel = dict(
         fn = 'rbf',
@@ -31,33 +30,39 @@ class Model():
     def __init__(self, options):
         self.options = {**default_options, **options}
 
-    def fit(self, x_train, y_train, x_val, y_val):
+    def fit(self, x_train, y_train):
         if self.options['standardize']:
             self.scaler = StandardScaler()
             x_train = self.scaler.fit_transform(x_train)
-            x_val = self.scaler.transform(x_val)
 
-        self.dataset = (x_train, y_train, x_val, y_val)
+        self.dataset = (x_train, y_train)
 
         self.classes = np.unique(y_train)
-        trainer = ovo if self.options['multiclass'] == 'ovo' else ovr
-        self.models = trainer.fit(self.options, self.dataset, self.classes)
+        self.models = ovo.fit(self.options, self.dataset, self.classes)
 
     def predict(self, x_test):
         if self.options['standardize']:
             x_test = self.scaler.transform(x_test)
 
-        trainer = ovo if self.options['multiclass'] == 'ovo' else ovr
-        return trainer.predict(self.options, self.models, x_test, self.classes)
+        return ovo.predict(self.options, self.models, x_test, self.classes)
 
-    def plot(self, x, y, iters):
+    def plot(self, x, y, xt, yt, iters):
         if self.options['standardize']:
             x = self.scaler.transform(x)
-        trainer = ovo if self.options['multiclass'] == 'ovo' else ovr
-        scores = []
+            xt = self.scaler.transform(xt)
+        scores_x = []
+        scores_xt = []
         for i in range(iters):
-            yhat = trainer.predict(self.options, self.models, x, self.classes, i)
-            sc = 1 - accuracy_score(yhat, y)
-            scores.append(sc)
+            yhat_x = ovo.predict(self.options, self.models, x, self.classes, i)
+            scores_x.append(1 - accuracy_score(yhat_x, y))
+            yhat_xt = ovo.predict(self.options, self.models, xt, self.classes, i)
+            scores_xt.append(1 - accuracy_score(yhat_xt, yt))
 
-        pd.Series(scores).plot()
+        fig = plt.figure(figsize=(10,5))
+        ax = fig.add_subplot(111)
+        ax.set_title('Misclassfication plot')
+        ax.plot(range(iters), scores_x, label='Training error')
+        ax.plot(range(iters), scores_xt, label='Validation error')
+        ax.set_xlabel('Iterations')
+        ax.set_ylabel('Misclassfication (1-Accuracy)')
+        ax.legend(loc='best')

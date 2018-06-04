@@ -4,6 +4,14 @@ from lib.kernels.poly import poly
 
 
 def kerneleval(X_test, X_train, kernel):
+    """
+    This function computes the pariwise distances between
+    each row in X_test and X_train using the kernel
+    specified in 'kernel'
+
+    X_test, X_train: 2d np.arrays
+    kernel: kernel parameters
+    """
     if kernel is None:
         return X_train
 
@@ -17,6 +25,10 @@ def kerneleval(X_test, X_train, kernel):
 
 
 def computegram(X, kernel):
+    """
+    Computes the pariwise distances between each row of
+    X, using the kernel specified in 'kernel'
+    """
     if kernel is None:
         return X.T
 
