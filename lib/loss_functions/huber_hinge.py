@@ -2,6 +2,9 @@ import numpy as np
 
 
 def loss(K, y, alpha, L, h=0.5):
+    """
+    Implements the huber hinge loss:
+    """
     _, n = K.shape
 
     z = 1 - y.reshape(-1,1) * K @ alpha
@@ -12,6 +15,9 @@ def loss(K, y, alpha, L, h=0.5):
 
 
 def gradient(K, y, alpha, L, h=0.5):
+    """
+    The gradient function of the loss function defined above.
+    """
     _, n = K.shape
 
     z = 1 - y.reshape(-1,1) * K @ alpha

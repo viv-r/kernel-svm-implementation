@@ -2,6 +2,10 @@ import numpy as np
 
 
 def loss(x, y, beta, L, h=0.5):
+    """
+    Implements the squared hinge loss function
+
+    """
     d, n = x.shape
 
     z = 1 - y.reshape(-1,1) * x.T @ beta
@@ -12,6 +16,9 @@ def loss(x, y, beta, L, h=0.5):
 
 
 def gradient(x, y, beta, L, h=0.5):
+    """
+    The gradient function of the loss function defined above.
+    """
     d, n = x.shape
 
     z = 1 - y.reshape(-1,1) * x.T @ beta

@@ -31,6 +31,9 @@ class Model():
         self.options = {**default_options, **options}
 
     def fit(self, x_train, y_train):
+        """
+        Fits the model to the data provided
+        """
         if self.options['standardize']:
             self.scaler = StandardScaler()
             x_train = self.scaler.fit_transform(x_train)
@@ -41,12 +44,24 @@ class Model():
         self.models = ovo.fit(self.options, self.dataset, self.classes)
 
     def predict(self, x_test):
+        """
+        Returns the model's predictions on x_test
+
+        .fit(..) must be called prior to this.
+        """
+        if self.models is None:
+            raise Exception("Fit was not called.")
+
         if self.options['standardize']:
             x_test = self.scaler.transform(x_test)
 
         return ovo.predict(self.options, self.models, x_test, self.classes)
 
     def plot(self, x, y, xt, yt, iters):
+        """
+        Plots the training and validation misclassfication
+        error as a function of training iterations.
+        """
         if self.options['standardize']:
             x = self.scaler.transform(x)
             xt = self.scaler.transform(xt)
@@ -54,7 +69,7 @@ class Model():
         scores_xt = []
         for i in range(iters):
             yhat_x = ovo.predict(self.options, self.models, x, self.classes, i)
-            scores_x.append(1 - accuracy_score(yhat_x, y))
+            Scores_x.append(1 - accuracy_score(yhat_x, y))
             yhat_xt = ovo.predict(self.options, self.models, xt, self.classes, i)
             scores_xt.append(1 - accuracy_score(yhat_xt, yt))
 

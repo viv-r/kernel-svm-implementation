@@ -19,7 +19,7 @@ The datasets used in the examples are taken from the following sources:
 
 Instantiate the model:
 
-```
+```python
 from lib import Model
 
 options = { ... }
@@ -28,7 +28,7 @@ model = Model(options)
 
 The fit and predict api is similar to sklearn's
 
-```
+```python
 model.fit(x_train, y_train)
 yhat = model.predict(x_test)
 ```
@@ -37,7 +37,8 @@ yhat = model.predict(x_test)
 
 The model can be configured by passing a dictionary of options to the constructor.
 The structure of the options object is as follows:
-```
+
+```typescript
 {
     standardize: boolean,
     l2_lambda: float,
@@ -48,13 +49,13 @@ The structure of the options object is as follows:
         degree: int (only used if fn == 'poly')
     ),
     gradient_descent: {
-        max_iter: int
-        step_size: float
+        max_iter: int,
+        step_size: float,
         eps: float
     ),
     backtrack: {
-        max_iter: int
-        alpha: float
+        max_iter: int,
+        alpha: float,
         gamma: float
     }
 }
