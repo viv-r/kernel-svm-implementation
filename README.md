@@ -40,23 +40,23 @@ The structure of the options object is as follows:
 
 ```typescript
 {
-    standardize: boolean,
-    l2_lambda: float,
-    objective: 'huber_hinge' | 'squared_hinge',
-    kernel = {
-        fn = 'rbf' | 'linear' | 'poly',
-        gamma: float (only used if fn == 'rbf')
-        degree: int (only used if fn == 'poly')
+    standardize: boolean, // (if the data should be standardized before fit)
+    l2_lambda: float, // (the L2 regularization penalty)
+    objective: 'huber_hinge' | 'squared_hinge', // (the loss function to use)
+    kernel: {
+        fn: 'rbf' | 'linear' | 'poly',  // (the kernel function to use)
+        gamma: float // (only used if fn == 'rbf')
+        degree: int // (only used if fn == 'poly')
     ),
     gradient_descent: {
-        max_iter: int,
-        step_size: float,
-        eps: float
+        max_iter: int, // (the maximum iterations of the gradient descent algorithm)
+        step_size: float, // (the initial step size)
+        eps: float // (stop's training early if the norm of the gradient is smaller than this)
     ),
     backtrack: {
-        max_iter: int,
-        alpha: float,
-        gamma: float
+        max_iter: int, // (max iterations to find the step size using backtracking)
+        alpha: float, // (backtracking control parameter)
+        gamma: float // (step-size multiplier per iteration)
     }
 }
 ```
