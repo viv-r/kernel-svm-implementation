@@ -1,3 +1,7 @@
+"""
+Helper functions to fit multi-class models using
+the one-vs-one strategy.
+"""
 import numpy as np
 from lib.gradient_descent import gradient_descent
 from itertools import combinations

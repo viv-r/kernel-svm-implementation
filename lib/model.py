@@ -1,3 +1,6 @@
+"""
+The Model class.
+"""
 
 import numpy as np
 import pandas as pd
@@ -6,6 +9,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 
+# default options that are used
+# user specified options replace these.
 default_options = dict(
     standardize = False,
     l2_lambda = 1,

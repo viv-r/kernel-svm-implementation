@@ -1,3 +1,7 @@
+"""
+Implementation of the backtracking line search algorithm
+and the the fast gradient descent algorithm.
+"""
 import numpy as np
 from lib.loss_functions.utils import get_loss_gradient_functions
 
